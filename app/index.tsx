@@ -41,7 +41,10 @@ export default function HomeScreen() {
   // Speech recognition events
   useSpeechRecognitionEvent('start', () => setListening(true));
   useSpeechRecognitionEvent('end', () => setListening(false));
-  useSpeechRecognitionEvent('error', () => setListening(false));
+  useSpeechRecognitionEvent('error', (event) => {
+    console.log("error code:", event.error, "error message:", event.message);
+    setListening(false);
+  });
   useSpeechRecognitionEvent('result', (e: any) => {
     const latest = e.results?.[0]?.transcript ?? '';
     setInput(latest);
