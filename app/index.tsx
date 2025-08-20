@@ -1,5 +1,7 @@
 import { ChatBubble } from '@/components/ChatBubble';
 import { ChatInputRow } from '@/components/ChatInputRow';
+import { StatusBar } from 'expo-status-bar';
+
 import {
   ExpoSpeechRecognitionModule,
   useSpeechRecognitionEvent,
@@ -13,7 +15,6 @@ import {
   Text,
   View
 } from 'react-native';
-
 const MOCK_REPLIES = [
   "That's an interesting question!",
   'I’ll have to think more about that.',
@@ -95,6 +96,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
       <FlatList
         ref={listRef}
         data={messages}
