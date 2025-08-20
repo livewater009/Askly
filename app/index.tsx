@@ -138,7 +138,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F7F7F9' },
+  container: { flex: 1, backgroundColor: '#F7F7F9', paddingTop: 10 },
   listContent: { padding: 12, paddingBottom: 8 },
   typingRow: { flexDirection: 'row', alignItems: 'center', gap: 8, padding: 12 },
   typingText: { fontSize: 12, color: '#555' },
