@@ -40,10 +40,30 @@ export default function HomeScreen() {
 
   // Speech recognition events
   useSpeechRecognitionEvent('start', () => setListening(true));
-  useSpeechRecognitionEvent('end', () => setListening(false));
+  useSpeechRecognitionEvent('end', () => {
+    if (recognizerActive) {
+      console.log("Recognizer ended, restarting...");
+      setListening(false);
+      setRecognizerActive(false);
+  
+      // restart listening automatically
+      startListening();
+    }
+  });
   useSpeechRecognitionEvent('error', (event) => {
+    if (event.error === 'no-speech') {
+      console.log("Silence detected, restarting listener...");
+      setListening(false);
+      setRecognizerActive(false);
+  
+      // restart listening automatically
+      startListening();
+      return;
+    }
+
     console.log("error code:", event.error, "error message:", event.message);
     setListening(false);
+    setRecognizerActive(false);
   });
   useSpeechRecognitionEvent('result', (e: any) => {
     const latest = e.results?.[0]?.transcript ?? '';
@@ -69,7 +89,7 @@ export default function HomeScreen() {
     ExpoSpeechRecognitionModule.start({
       lang: 'en-US',
       interimResults: true,
-      continuous: false,
+      continuous: true,
     });
   };
 
